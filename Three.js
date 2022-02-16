@@ -300,3 +300,4 @@ export default function threeJSexemple(){
 			animate()
 			return
 }
+threeJSexemple();
