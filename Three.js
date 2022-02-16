@@ -2,7 +2,7 @@
 import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.137.5-HJEdoVYPhjkiJWkt6XIa/mode=imports,min/optimized/three.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/pin/three@v0.137.5-HJEdoVYPhjkiJWkt6XIa/mode=raw,min/examples/jsm/controls/OrbitControls.js';
 			
-			import {GetPlanete,GetMoon} from "./Component/Data"
+			import {GetPlanete,GetMoon} from "./Component/Data.js"
 			//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 export default function threeJSexemple(){
 			let camera, scene,controls, renderer,raycaster,mouse,target,vec2;
