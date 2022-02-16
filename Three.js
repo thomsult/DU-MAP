@@ -298,5 +298,5 @@ export default function threeJSexemple(){
 
 			}
 			animate()
-			return <></>
+			return
 }
