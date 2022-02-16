@@ -1,4 +1,4 @@
-import Helios from "../data/helios.json";
+import Helios from "../data/helios.json" assert { type: "json" };
 
 function GetMoon(array) {
   const Sat = array;
