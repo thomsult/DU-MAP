@@ -6,10 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Du-Map</title>
     <style>
-        body { margin: 0; }
+        body {
+  margin: 0;
+  height:100vh;
+  width:100vw;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.info{
+  position: absolute;
+  height:6vh;
+  width: 20vw;
+  min-width: 200px;
+  top: 0;
+  right: 0;
+  opacity: 0.5;
+  background: gray;
+  border-left: solid 2px  white;
+  border-bottom: solid 2px  white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+}
     </style>
 </head>
 <body>
+    <div className='info'><p id='info'>Aliot</p></div>
     <script type="module" src="./Three.js"></script>
 </body>
 </html>
