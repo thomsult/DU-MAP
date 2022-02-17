@@ -1,6 +1,6 @@
 //import * as THREE from 'three';
-import * as THREE from 'https://unpkg.com/three@0.137.5/build/three.module.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.137.5/examples/jsm/controls/OrbitControls.js';
+import * as THREE from './js/three.module.js';
+import { OrbitControls } from './js/OrbitControls.js';
 			
 			import {GetPlanete,GetMoon} from "./Component/Data.js"
 			//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
