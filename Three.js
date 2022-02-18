@@ -2,7 +2,7 @@
 import * as THREE from './js/three.module.js';
 import { OrbitControls } from './js/OrbitControls.js'; ///files modified
 			
-			import {GetPlanete,GetMoon} from "./Component/Data.js"
+			import {GetAllData,GetPlanete,GetMoon} from "./Component/Data.js"
 			//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 export default function threeJSexemple(){
 			let camera, scene,controls, renderer,raycaster,mouse,target,vec2;
@@ -92,7 +92,7 @@ export default function threeJSexemple(){
 				ellipse.rotateOnAxis(new THREE.Vector3(1,0,0),20.42)
 				group.add(ellipse)
 			}
-				function Helios(){
+				async function Helios(){
 				
 				const centerMap = new THREE.Vector3(0*Scale, 24000000*Scale, 0*Scale)//position approximative
 				function SafeZone(){
@@ -110,16 +110,17 @@ export default function threeJSexemple(){
 					group.add(safezone);
 				}
 
-
+				GetAllData().then(Helios=>{
 				const Planets = new THREE.Group();
 				Planets.name = "Planète"
-				GetPlanete().forEach((el)=>{
+				//console.log(Helios)
+				GetPlanete(Helios).forEach((el)=>{
 						const Planet = new THREE.Group();
 						Planet.name = el.name[1]
 						Planet.userData = el
 						Planet._id = el.id
-						Planet.info = "Planet"
-						Planet.satellites = GetMoon(el.satellites)
+						Planet.info = "Planet"//Planet.satellites
+						Planet.satellites = GetMoon(el.satellites,Helios)
 
 						Planet.position.set(el.center[0]* Scale,el.center[1]* Scale,el.center[2]* Scale)
 	
@@ -223,7 +224,7 @@ export default function threeJSexemple(){
 							
 					})
 				
-				
+					})
 				}
 				Helios()
 				
