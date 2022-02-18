@@ -2,7 +2,7 @@
 //const Helios = require("../data/helios.json")
 
 async function GetAllData(){
-   const fetcher = await fetch('./data/helios.json').then(response => {
+   const fetcher = await fetch('https://thomsult.github.io/DU-MAP/data/helios.json').then(response => {
       return response.json();
 
     })
