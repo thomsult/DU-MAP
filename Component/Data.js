@@ -1,25 +1,24 @@
-import Helios from "../data/helios.json" assert { type: "json" };
+//import Helios from "../data/helios.json" assert { type: "json" };
+//const Helios = require("../data/helios.json")
 
-function GetMoon(array) {
-  const Sat = array;
-  return Sat
-    ? Sat.map((id) => {
-        const HeliosArray = Object.values(Helios["0"]);
-        const Moon = HeliosArray.filter((el) => {
-          return el.type[0]?.includes("Moon") ? el : null;
-        });
-        return Moon.find((items) => items.id === id);
-      })
-    : null;
+async function GetAllData(){
+   const fetcher = await fetch('../data/helios.json').then(response => {
+      return response.json();
+
+    })
+    return fetcher[0]
 }
 
-function GetPlanete() {
+
+
+
+function GetPlanete(Helios) {
   var size = 1300;
   const Planete = [];
   for (let index = 1; index < size; index++) {
-    if (Helios[0][index] !== undefined) {
-      if (!Helios[0][index].name[0].includes("Moon")) {
-        const p = Helios[0][index];
+    if (Helios[index] !== undefined) {
+      if (!Helios[index].name[0].includes("Moon")) {
+        const p = Helios[index];
         Planete.push(p);
       }
     } else {
@@ -30,4 +29,17 @@ function GetPlanete() {
   return Planete;
 }
 
-export { GetPlanete, GetMoon };
+
+function GetMoon(array,Helios) {
+  const Sat = array;
+  return Sat
+    ? Sat.map((id) => {
+        const HeliosArray = Object.values(Helios);
+        const Moon = HeliosArray.filter((el) => {
+          return el.type[0]?.includes("Moon") ? el : null;
+        });
+        return Moon.find((items) => items.id === id);
+      })
+    : null;
+}
+export {GetAllData, GetPlanete, GetMoon };
