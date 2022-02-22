@@ -10,7 +10,7 @@
   margin: 0;
   height:100vh;
   width:100vw;
-
+  overflow: hidden;
 }
 
 code {
@@ -19,8 +19,9 @@ code {
 }
 .info{
   position: absolute;
-  height:6vh;
+  height:100vh;
   width: 20vw;
+  
   min-width: 200px;
   top: 0;
   right: 0;
@@ -30,15 +31,18 @@ code {
   border-bottom: solid 2px  white;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   font-size: 1.5em;
-}.PlaneteName{
+}
+.PlaneteName{
     position: absolute; 
     color: white;
     text-decoration: none;
     cursor: pointer;
 }
+
     </style>
 </head>
 <body>
