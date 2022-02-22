@@ -33,6 +33,11 @@ code {
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
+}.PlaneteName{
+    position: absolute; 
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
 }
     </style>
 </head>
@@ -41,7 +46,16 @@ code {
     <div id="root">
         <div class='info'>
             <p id='info'>Aliot</p>
+            <label class="switch">
+                <input type="checkbox" id="safezoneToggle">
+                <span class="slider">Safe-zone</span>
+            </label>
+            <label class="switch">
+                <input type="checkbox" id="pipeToggle" >
+                <span class="slider">Pipe to Safe-zone</span>
+            </label>
         </div>
+        <div id="Planete"></div>
     </div>
     <script type="module" src="./Three.js"></script>
 </body>
