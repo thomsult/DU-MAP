@@ -1,4 +1,4 @@
-# DU-MAP
+# DU-MAP V0.2
 Dual univers map
 <a>https://thomsult.github.io/DU-MAP/build/</a>
 
