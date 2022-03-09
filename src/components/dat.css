@@ -1,0 +1,26 @@
+.Ores {
+  width: 20%!important;
+  border-right: 2px solid #3c3c3c;
+  margin-right: 10px;
+  
+}
+.T1{
+  border-left: 10px solid #ffffff;
+  padding-left: 20px;
+}
+.T2{
+  border-left: 10px solid #002fff;
+  padding-left: 20px;
+}
+.T3{
+  border-left: 10px solid #1eb300;
+  padding-left: 20px;
+}
+.T4{
+  border-left: 10px solid #ffe600;
+  padding-left: 20px;
+}
+.T5{
+  border-left: 10px solid #ff0000;
+  padding-left: 20px;
+}

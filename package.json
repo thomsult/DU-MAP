@@ -1,0 +1,59 @@
+{
+  "main": "public/electron.js",
+  "name": "du-map",
+  "author": "thomsult",
+  "description": "Du-map",
+  "version": "0.2.0",
+  "homepage": "./",
+  "private": true,
+  "dependencies": {
+    "@babylonjs/core": "^4.2.1",
+    "babylonjs": "^4.0.3",
+    "dat.gui": "^0.7.9",
+    "electron-is": "^3.0.0",
+    "react": "^17.0.2",
+    "react-babylonjs": "^3.0.31",
+    "react-dom": "^17.0.2",
+    "react-scripts": "2.1.5"
+  },
+  "devDependencies": {
+    "@babylonjs/inspector": "^4.2.1",
+    "@types/dat.gui": "^0.7.7",
+    "autoprefixer": "^10.4.2",
+    "electron": "^5.0.1",
+    "electron-builder": "^20.40.2",
+    "postcss": "^8.4.7",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^3.4.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-static": "npm run build-web && electron build/electron.js",
+    "build-web": "react-scripts build",
+    "build": "npm run build-web && build --win",
+    "build-portable": "npm run build-web && build --win portable",
+    "electron": "electron public/electron.js",
+    "electron2": "electron public/electron.js | react-scripts start"
+  },
+  "build": {
+    "asar": true,
+    "appId": "com.electron.babylon",
+    "copyright": "null",
+    "productName": "du-map",
+    "win": {
+      "icon": "public/icon.png",
+      "publisherName": "Thomsult"
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
