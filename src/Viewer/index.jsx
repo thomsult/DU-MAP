@@ -1,17 +1,31 @@
-import React ,{useRef}from 'react';
+import React ,{useRef,useState,useCallback}from 'react';
 
 import Helios from './Helios';
-import { ArcRotateCamera, Scene,useScene} from 'react-babylonjs'
-import { Vector3,Color3,  } from '@babylonjs/core';
-import "@babylonjs/core/Debug/debugLayer"; // Augments the scene with the debug methods
-import "@babylonjs/inspector"; // Injects a local ES6 version of the inspector to prevent automatically relying on the none compatible version
+import { Scene,Skybox} from 'react-babylonjs'
+import { Vector3,Color3, Texture  } from '@babylonjs/core';
 
 
-export default function Viewer(){ 
-  
+
+export default function Viewer(){
+  var cubeTextureNode = null;
+  var cubeTextureClone = null;
+  var route = '../../assets/textures/' 
+  const [texturesLoaded, setTexturesLoaded] = useState(false);
+  const cubeTextureRef = useCallback(node => {
+    if (node && texturesLoaded === false) {
+      setTexturesLoaded(true); // trigger render and props assignment
+      cubeTextureNode = node;
+
+      cubeTextureClone = cubeTextureNode.clone();
+      cubeTextureClone.name = 'cloned texture'
+      cubeTextureClone.coordinatesMode = Texture.SKYBOX_MODE;
+    }
+  }, []);
+  //          <cubeTexture ref={cubeTextureRef} name="cubeTexture" rootUrl={SkyboxTexture} createPolynomials={true} format={undefined} prefiltered={true}/>
+
    return (
            <Scene name="Helios" ambientColor={new  Color3(1, 1, 1)} clearColor={new Color3.Black()}>
-                <ArcRotateCamera
+                <arcRotateCamera
           name="camera1"
           target={Vector3.Zero()}
           alpha={Math.PI / 3}
@@ -21,8 +35,10 @@ export default function Viewer(){
         />
             
             <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
-              <Helios/>
             
+            <Skybox size={100000} rootUrl={route}></Skybox>
+
+      <Helios/>
           </Scene>
         )
     }

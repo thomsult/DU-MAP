@@ -1,11 +1,12 @@
 
 import { FindBody } from './Data';
-import React,{useState,useRef} from "react";
+import React,{useState,useRef,useMemo, useContext, useCallback} from "react";
 
 import { Vector3 } from "@babylonjs/core";
 import { Color3} from "@babylonjs/core/Maths/math.color";
 import { Ray,RayHelper,MeshBuilder,Mesh, StandardMaterial } from "babylonjs";
-import { Line, useBeforeRender } from "react-babylonjs";
+import { Line, useBeforeRender,useScene } from "react-babylonjs";
+import{IDContext,dispatchWaypoint} from "../context"
 const Scale = 0.00005
 
 function ScaleValue(vec3,Scale){
@@ -61,26 +62,25 @@ async function parseCoordonner(coordonner) {
                         coordonne: new Vector3(globalX,globalY,globalZ)
                     } })}
             else if(!formatted.error && formatted.planetID === 0){
-                const promise = new Promise((resolve, reject) => {
+                return  new Promise((resolve, reject) => {
                     resolve({
                         error: "false",
                         message:"les coordonner sont dans l'espace",
                         coordonne: new Vector3(formatted.long,formatted.lat,formatted.height)
                     })
                 });
-                return promise
+  
 
 
             }
             
             else{
-                const promise = new Promise((resolve, reject) => {
+                return new Promise((resolve, reject) => {
                     resolve({
                         error: "true",
                         message:'les coordonner ne sont pas bien formater',
                     })
                 });
-                return promise
             }
         
         
@@ -115,15 +115,39 @@ async function parseCoordonner(coordonner) {
 
 
 
+const MakePoint = ((props) => {
+    const Ref = useRef()
+    
+    
+  const created = (Ref)=>{
+    dispatchWaypoint(Ref)
+  }
+
+//position={props.position}
+
+  return (
+      <sphere ref={Ref} name={"Point-"+props.id} diameter={0.1} segments={7} position={props.position} onCreated={created}>
+      <standardMaterial name={"Point-Mat"} diffuseColor={Color3.Blue()} specularColor={Color3.Black()} />
+          </sphere>)
+})
 
 
-export  default function InfoUser()
+
+
+
+
+
+
+
+
+export  default function InfoUser(props)
 {
-
+    
 /*    const worldVec = new BABYLON.Vector3(corArriver2.X,corArriver2.Y,corArriver2.Z)
 const coords    = worldVec.subtract(Aliot)
 const distance  = coords.length()
 const altitude  = distance - AliotRadius */
+const [Point,setPoint] = useState([])
 const [count,setcount] = useState(0)
 const Coordonner = [
     "::pos{0,2,30.8601,53.3687,-0.0000}",
@@ -135,16 +159,24 @@ const Coordonner = [
 useBeforeRender(async (scene)  => {
     if(count === 0){
         setcount(count+1)
-        const points = await Promise.all(Coordonner.map((el)=>getPoints(el,Scale))).then((Points)=>{return Points})
-        new MeshBuilder.CreateLines("path",{points:points},scene)
-        console.log("count") 
+        setPoint(await Promise.all(Coordonner.map((el)=>getPoints(el,Scale))).then((Points)=>{return Points}))
         
     }
     
 }) 
 
 
- return null
+const pointobj = Point.length>0&&Point.map((value,key)=><MakePoint position={value} key={key} id={key}/>)
+ 
+return Point.length> 0?
+ <transformNode name={'Waypoint'}>
+     <lines name='Waypoint-Path' points={Point} color={new Color3(1, 1, 1)}>
+    </lines>
+    {pointobj}
+
+    
+    
+    </transformNode>:null
 }
 
 

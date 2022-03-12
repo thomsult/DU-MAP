@@ -1,23 +1,28 @@
-import React,{useRef,useState} from "react";
+import React,{useRef,useState,useContext} from "react";
 
 import { Vector3 } from "@babylonjs/core";
 import { Color3} from "@babylonjs/core/Maths/math.color";
 import { Ray,RayHelper,MeshBuilder,Mesh, StandardMaterial, } from "babylonjs";
 import { Scene, Tube, useBeforeRender, useScene } from "react-babylonjs";
-
+import { IDContext,reducer } from '../../context'
 const Scale = 0.00005;
 
 
  function Orbit(props){
-    const [Hide, setHide] = useState()
+
+
+    const Context = useContext(IDContext)
+    const [Hide,sethide] = useState(Context.orbit)
+  
+    useBeforeRender(()=>{
+  
+      sethide(Context.orbit)
+    })
+
+
     const Planet_info = props.params
     const parent = new Vector3(0,0,0)
     const Type = props.type
-    useBeforeRender(async() => {
-        //
-        setHide(document.getElementById("Orbit").checked)
-        
-      });
         const Moon = Type === undefined? new Vector3().copyFrom(parent):new Vector3().copyFrom(Planet_info)
         const Planet = Type === undefined? new Vector3().copyFrom(Planet_info):new Vector3().copyFrom(parent)
         
@@ -41,7 +46,7 @@ const Scale = 0.00005;
             isPickable={false}
             name={"orbit"}
             points={newPath}
-            color={Type === undefined?new Color3(0,1,0):new Color3(1,0,0)}
+            color={Type === undefined?new Color3(0,1,0):new Color3(1,1,1)}
             onCreated={(lines)=>{lines.lookAt(Type === undefined?Planet:Moon)}}
           />
           )
@@ -59,14 +64,14 @@ function Pipe(props){
     const po = Aliot.subtract(props.position) //destination
     const pos = new Vector3(0,0,0) //origin
     const scene = useScene()
-const [Hide, setHide] = useState()
-
-
-useBeforeRender(async() => {
-    //
-    setHide(document.getElementById("pipe").checked)
     
-  });
+    const Context = useContext(IDContext)
+    const [Hide,sethide] = useState(Context.pipe)
+  
+    useBeforeRender(()=>{
+  
+      sethide(Context.pipe)
+    })
 
 
 const transform = useRef(null)
@@ -83,6 +88,7 @@ const  Tube =()=>{
     var ray = new Ray(localMeshOrigin,localMeshDirection,length);
     function predicate(mesh) {
         if (mesh.name === "SafeZone Trigger") {
+            mesh.computeWorldMatrix()
             return true;
         }
         return false;
@@ -106,6 +112,7 @@ if (Path.length > 0 && transform.current !== null){
     mat.alpha = 0.14
     mesh.material = mat
     mesh.parent = transform.current
+    
     resolve({state:true,val:"ok"})
 
     } 
