@@ -2,9 +2,22 @@
 Dual univers map
 <a>https://thomsult.github.io/DU-MAP/build/</a>
 
+### Future:
+- background texture replacement.
+- adding a waypoint
+- fix display and camera movement bug
+
+**Note: If you have ideas... I'm open to talk about it**
 
 
-## What is this
+
+
+
+
+
+
+-----------------
+## Electron React Babylonjs What is this
 
 Boilerplate to create react+babylonjs apps that can also run inside electron.
 
